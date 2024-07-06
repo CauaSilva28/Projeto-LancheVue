@@ -44,7 +44,7 @@
     </nav>
     <div class="container">
         <div id="app">
-            <div class="row">
+            <div class="row mt-5">
 
                 <div class="col-md-6"> <!-- seção img -->
                     <div class="row mt-2">
@@ -60,7 +60,7 @@
                     </div>
                 </div> <!-- fim seção img -->
 
-                <div class="col-md-6">
+                <div class="col-md-6" v-if="etapa == 1">
                     <!-- TIPO do pão -->
                     <div class="row mt-2">
                         <div class="col">
@@ -162,7 +162,69 @@
                     </div>
                     <!-- FIM HAMBURGUER -->
 
-                </div>
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" v-on:click="fazerPedido">Fazer pedido</button>
+                        </div>
+                    </div>
+
+                </div> <!-- fim etapa 1 -->
+
+                <div class="col-md-6" v-if="etapa == 2">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    Informe seus dados
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nome</label>
+                                        <input type="text" class="form-control" v-model="inputNome">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" v-model="inputEndereco">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-between">
+                            <button type="button" class="btn btn-warning" v-on:click="etapa -= 1">Voltar para o Lanche</button>
+                            <button type="button" class="btn btn-success" v-on:click="confirmarPedido">Confirmar</button>
+                        </div>
+                    </div>
+                </div> <!-- fim etapa 2 -->
+
+                <div class="col-md-6" v-if="etapa == 3">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    PEDIDO CONFIRMADO
+                                </div>
+
+                                <div class="card-body">
+                                    <p>Agora é só aguardar! Seu pedido está a caminho.</p>
+                                    <p>Notificaremos você em breve</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-between">
+                            <button type="button" class="btn btn-primary" v-on:click="etapa = 1">Repetir Pedido</button>
+                            <button type="button" class="btn btn-success" v-on:click="novoPedido">Novo Pedido</button>
+                        </div>
+                    </div>
+                </div> <!-- fim etapa 3 -->
+
             </div>
         </div>
     </div>
@@ -174,11 +236,15 @@
         const vm = new Vue({
             el:'#app',
             data:{ //atributos / propriedades
+                etapa:1,
+
                 teste:'TIPO DO PÃO',
                 textobotao:'>',
                 
                 inputTipoPao:'',
                 inputHamburguers:'',
+                inputNome:'',
+                inputEndereco:'',
 
                 inputSalada:[],
                 inputMolhos:[],
@@ -238,20 +304,38 @@
                 
             },
 
-            methods: {
+            methods: { //Métodos
                 mudartext: function(){
                     if(!mudartext){
                         this.teste = 'OS MELHORES SABORES';
-                        this.textobotao = '<',
+                        this.textobotao = '<';
                         mudartext = true;
                     }
                     else{
                         this.teste = 'TIPO DO PÃO';
-                        this.textobotao = '>',
+                        this.textobotao = '>';
                         mudartext = false;
                     }
-                }
-            }
+                },
+
+                fazerPedido: function(){
+                    if(this.inputTipoPao == '' || this.inputHamburguers == ''){
+                        alert('Selecione pelo menos um tipo de hamburguer e um pão');
+                    }
+                    else{
+                        this.etapa = 2;
+                    }
+                },
+
+                confirmarPedido: function(){
+                    if(this.inputNome && this.inputTipoPao){
+                        this.etapa = 3;
+                    }
+                    else{
+                        alert('Você precisa informar o seu nome e endereço');
+                    }
+                },
+            },
         });
     </script>
 </body>
