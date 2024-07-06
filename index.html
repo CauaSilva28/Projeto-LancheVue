@@ -11,6 +11,30 @@
 
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <style>
+        body{
+            background-color:#ffdcb8
+        }
+
+        .card{
+            border:1px solid #aa917a;
+        }
+        .card-header{
+            background-color:#ebc5a1;
+        }
+        .card-header button{
+            border-radius:2em;
+            font-weight: 600;
+            width:30px;
+            height:30px;
+            text-align:center;
+        }
+        .card-body{
+            background-color:#ffeddc;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -18,7 +42,6 @@
             <span class="navbar-brand mb-0 h1">Monte o seu lanche</span>
         </div>
     </nav>
-
     <div class="container">
         <div id="app">
             <div class="row">
@@ -44,7 +67,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     {{teste}}
-                                    <button v-on:click="mudartext">></button>
+                                    <button v-on:click="mudartext">{{textobotao}}</button>
                                 </div>
 
                                 <div class="card-body">
@@ -62,7 +85,7 @@
                     </div>
                      <!-- FIM TIPO do pão -->
 
-                     <!-- SALADA -->
+                    <!-- SALADA -->
                     <div class="row mt-2">
                         <div class="col">
                             <div class="card">
@@ -81,6 +104,35 @@
                     </div>
                     <!-- FIM SALADA -->
 
+                    <!-- MOLHO -->
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    MOLHOS
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="ketchup" v-model="inputMolhos">
+                                        <label class="form-check-label">Ketchup</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="mostarda" v-model="inputMolhos">
+                                        <label class="form-check-label">Mostarda</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="maionese" v-model="inputMolhos">
+                                        <label class="form-check-label">Maionese</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM MOLHO -->
+
                 </div>
             </div>
         </div>
@@ -94,9 +146,11 @@
             el:'#app',
             data:{ //atributos / propriedades
                 teste:'TIPO DO PÃO',
+                textobotao:'>',
                 
                 inputTipoPao:'',
                 inputSalada:[],
+                inputMolhos:[],
             },
 
             computed:{ //propriedades computadas / reativos
@@ -117,16 +171,40 @@
 
                     return 'imagens/padrao/alface.png'
                 },
+                ketchup(){
+                    if(this.inputMolhos.includes('ketchup')){
+                        return 'imagens/ketchup.png'
+                    }
+
+                    return 'imagens/padrao/molho.png'
+                },
+                mostarda(){
+                    if(this.inputMolhos.includes('mostarda')){
+                        return 'imagens/mostarda.png'
+                    }
+
+                    return 'imagens/padrao/molho.png'
+                },
+                maionese(){
+                    if(this.inputMolhos.includes('maionese')){
+                        return 'imagens/maionese.png'
+                    }
+
+                    return 'imagens/padrao/molho.png'
+                },
+                
             },
 
             methods: {
                 mudartext: function(){
                     if(!mudartext){
                         this.teste = 'OS MELHORES SABORES';
+                        this.textobotao = '<',
                         mudartext = true;
                     }
                     else{
                         this.teste = 'TIPO DO PÃO';
+                        this.textobotao = '>',
                         mudartext = false;
                     }
                 }
