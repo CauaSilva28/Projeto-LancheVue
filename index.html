@@ -133,6 +133,35 @@
                     </div>
                     <!-- FIM MOLHO -->
 
+                    <!-- HAMBURGUER -->
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    TIPO DE HAMBURGUER
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="bovino" v-model="inputHamburguers">
+                                        <label class="form-check-label">Bovino</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="frango" v-model="inputHamburguers">
+                                        <label class="form-check-label">Frango</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="vegetal" v-model="inputHamburguers">
+                                        <label class="form-check-label">Vegetal</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM HAMBURGUER -->
+
                 </div>
             </div>
         </div>
@@ -149,6 +178,8 @@
                 textobotao:'>',
                 
                 inputTipoPao:'',
+                inputHamburguers:'',
+
                 inputSalada:[],
                 inputMolhos:[],
             },
@@ -191,6 +222,18 @@
                     }
 
                     return 'imagens/padrao/molho.png'
+                },
+                hamburguer(){
+                    switch(this.inputHamburguers){
+                        case 'bovino':
+                            return 'imagens/bovino.png'
+                        case 'frango':
+                            return 'imagens/frango.png'
+                        case 'vegetal':
+                            return 'imagens/soja.png'
+                        default:
+                            return 'imagens/padrao/hamburguer.png'
+                    }
                 },
                 
             },
